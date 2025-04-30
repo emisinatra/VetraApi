@@ -1,23 +1,30 @@
 package com.example.vetra.entities;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 import java.util.List;
 
-public class Descuento extends Base{
+@Entity
+@Table(name = "descuentos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@SuperBuilder
+public class Descuento extends Base {
 
-    @Column(name = "fecha_inicio")
+    @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;
 
-    @Column(name = "fecha_cierre")
+    @Column(name = "fecha_cierre", nullable = false)
     private Date fechaCierre;
 
-    @Column(name = "descuento")
+    @Column(name = "porcentaje", nullable = false)
     private double descuento;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "producto")
+    @OneToMany(mappedBy = "descuento", cascade = CascadeType.ALL)
     private List<Producto> productos;
 }

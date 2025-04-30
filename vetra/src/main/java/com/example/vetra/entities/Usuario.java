@@ -1,25 +1,28 @@
 package com.example.vetra.entities;
 
 import com.example.vetra.entities.enums.Rol;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "usuarios")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Usuario extends Base{
+public class Usuario extends Base {
 
-    protected String nombre;
-    protected String email;
-    protected String contraseña;
-    protected Rol rol;
+    @Column(nullable = false)
+    private String nombre;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String contraseña;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Rol rol;
 }

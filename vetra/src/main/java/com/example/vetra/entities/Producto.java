@@ -2,31 +2,38 @@ package com.example.vetra.entities;
 
 import com.example.vetra.entities.enums.Categoria;
 import jakarta.persistence.*;
+import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class Producto extends Base{
+@Entity
+@Table(name = "productos")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class Producto extends Base {
 
-    @Column(name = "nombre")
+    @Column(nullable = false)
     private String nombre;
 
-    @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "precio")
+    @Column(nullable = false)
     private double precio;
 
-    @Column(name = "stock")
+    @Column(nullable = false)
     private int stock;
 
+    @ElementCollection(targetClass = Categoria.class)
+    @CollectionTable(name = "producto_categorias", joinColumns = @JoinColumn(name = "producto_id"))
+    @Enumerated(EnumType.STRING)
     @Column(name = "categoria")
     private List<Categoria> categorias;
 
-    @Column(name = "color")
     private String color;
 
-    @Column(name = "marca")
     private String marca;
 
     private String imagen;
@@ -36,6 +43,10 @@ public class Producto extends Base{
     private Descuento descuento;
 
     @ManyToMany
-    @JoinTable()
+    @JoinTable(
+            name = "producto_talle",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "talle_id")
+    )
     private List<Talle> talles;
 }

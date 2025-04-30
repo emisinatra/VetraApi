@@ -8,5 +8,5 @@ public enum Categoria {
     TRAIL,
     HOMBRE,
     MUJER,
-    NIÑOS,
+    NIÑOS
 }
