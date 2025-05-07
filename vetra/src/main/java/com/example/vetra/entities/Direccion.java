@@ -1,19 +1,22 @@
 package com.example.vetra.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Entity
 @Table(name = "domicilios")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Direccion extends Base {
     private String calle;
     private int codpost;
+
+    @ManyToMany(mappedBy = "direcciones", fetch = FetchType.LAZY)
+    private List<Usuario> usuarios;
 }

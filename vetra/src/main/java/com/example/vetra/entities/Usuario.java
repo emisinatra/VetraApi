@@ -3,6 +3,9 @@ package com.example.vetra.entities;
 import com.example.vetra.entities.enums.Rol;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.util.List;
 
 @Entity
 @Table(name = "usuarios")
@@ -10,7 +13,7 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class Usuario extends Base {
 
     @Column(nullable = false)
@@ -25,4 +28,10 @@ public class Usuario extends Base {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol rol;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "usuarios_direcciones",
+               joinColumns = @JoinColumn(name = "usuario_id"),
+               inverseJoinColumns = @JoinColumn(name = "direccion_id"))
+    private List<Direccion> direcciones;
 }

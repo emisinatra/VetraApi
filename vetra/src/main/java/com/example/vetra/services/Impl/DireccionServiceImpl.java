@@ -3,6 +3,7 @@ package com.example.vetra.services.Impl;
 import com.example.vetra.entities.Direccion;
 import com.example.vetra.repositories.DireccionRepository;
 import com.example.vetra.services.DireccionService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,11 @@ public class DireccionServiceImpl implements DireccionService {
     private final DireccionRepository direccionRepository;
 
     @Override
+    public Direccion save(Direccion direccion) {
+        return direccionRepository.save(direccion);
+    }
+
+    @Override
     public List<Direccion> findAll() {
         return direccionRepository.findAll();
     }
@@ -26,21 +32,20 @@ public class DireccionServiceImpl implements DireccionService {
     }
 
     @Override
-    public Direccion save(Direccion direccion) {
-        return direccionRepository.save(direccion);
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        direccionRepository.deleteById(id);
-    }
-
-    @Override
     public Direccion update(Long id, Direccion direccion) {
-        return direccionRepository.findById(id).map(existing -> {
-            existing.setCalle(direccion.getCalle());
-            existing.setCodpost(direccion.getCodpost());
-            return direccionRepository.save(existing);
-        }).orElseThrow(() -> new RuntimeException("Dirección no encontrada"));
+        Direccion existingDireccion = direccionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Dirección no encontrada con ID: " + id));
+        existingDireccion.setCalle(direccion.getCalle());
+        existingDireccion.setCodpost(direccion.getCodpost());
+        // Actualizar otros campos si los añades
+        return direccionRepository.save(existingDireccion);
+    }
+
+    @Override
+    public void delete(Long id) {
+        if (!direccionRepository.existsById(id)) {
+            throw new EntityNotFoundException("Dirección no encontrada con ID: " + id);
+        }
+        direccionRepository.deleteById(id);
     }
 }

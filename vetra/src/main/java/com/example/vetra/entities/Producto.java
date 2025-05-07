@@ -1,6 +1,5 @@
 package com.example.vetra.entities;
 
-import com.example.vetra.entities.enums.Categoria;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,10 +25,12 @@ public class Producto extends Base {
     @Column(nullable = false)
     private int stock;
 
-    @ElementCollection(targetClass = Categoria.class)
-    @CollectionTable(name = "producto_categorias", joinColumns = @JoinColumn(name = "producto_id"))
-    @Enumerated(EnumType.STRING)
-    @Column(name = "categoria")
+    @ManyToMany
+    @JoinTable(
+            name = "producto_categorias",
+            joinColumns = @JoinColumn(name = "producto_id"),
+            inverseJoinColumns = @JoinColumn(name = "categoria_id")
+    )
     private List<Categoria> categorias;
 
     private String color;
