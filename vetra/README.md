@@ -56,7 +56,6 @@ La estructura del proyecto sigue las convenciones de Spring Boot y promueve una 
         *   `Impl/`: Implementaciones concretas de los servicios (Ej: `UsuarioServiceImpl.java`).
     *   `controllers/`: Controladores REST que manejan las solicitudes HTTP y exponen los endpoints de la API (Ej: `UsuarioController.java`).
     *   `enums/`: (Si aplica) Enumeraciones utilizadas en la aplicación (Ej: `Rol.java`, `Estado.java`).
-    *   `dto/`: (Recomendado, no implementado en todos los casos aquí) Data Transfer Objects para las solicitudes y respuestas de la API.
 *   `src/main/resources/`
     *   `application.properties` o `application.yml`: Configuración de la aplicación (base de datos, servidor, etc.).
     *   `static/`: Recursos estáticos (CSS, JS, imágenes) si se sirve contenido web.

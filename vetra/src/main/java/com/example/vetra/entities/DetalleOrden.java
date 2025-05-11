@@ -28,7 +28,6 @@ public class DetalleOrden extends Base {
     private int cantidad;
 
     @Column(nullable = false)
-    private double precioUnitario; // Precio al momento de la compra
+    private double precioUnitario; 
 
-    // Podrías añadir subtotal = cantidad * precioUnitario
 } 

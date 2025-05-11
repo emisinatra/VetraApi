@@ -18,7 +18,6 @@ public class PedidoItemServiceImpl implements PedidoItemService {
 
     @Override
     public PedidoItem save(PedidoItem pedidoItem) {
-        // Aquí podrías añadir lógica de validación, ej. stock del producto
         return pedidoItemRepository.save(pedidoItem);
     }
 
@@ -38,7 +37,6 @@ public class PedidoItemServiceImpl implements PedidoItemService {
                 .orElseThrow(() -> new EntityNotFoundException("PedidoItem no encontrado con ID: " + id));
         // Solo permitir actualizar la cantidad por ejemplo
         existingItem.setCantidad(pedidoItem.getCantidad()); 
-        // Asegurarse que no se cambie el producto o el pedido al que pertenece desde aquí
         return pedidoItemRepository.save(existingItem);
     }
 
