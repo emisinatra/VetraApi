@@ -11,6 +11,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
+//Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class CategoriaController {
 

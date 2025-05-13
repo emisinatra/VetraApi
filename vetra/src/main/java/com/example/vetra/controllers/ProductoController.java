@@ -11,6 +11,8 @@ import java.util.List;
 // Controlador para manejar los productos de la tienda
 @RestController
 @RequestMapping("/api/productos")
+//Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
+@CrossOrigin(origins = "http://localhost:5173")
 public class ProductoController {
 
     // Servicio que maneja toda la lógica de productos

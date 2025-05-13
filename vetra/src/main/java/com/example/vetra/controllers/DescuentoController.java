@@ -9,6 +9,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/descuentos")
+//Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
+@CrossOrigin(origins = "http://localhost:5173")
 public class DescuentoController {
 
     private final DescuentoService descuentoService;

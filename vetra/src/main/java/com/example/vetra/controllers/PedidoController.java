@@ -11,6 +11,8 @@ import java.util.List;
 // Este controlador maneja todas las peticiones relacionadas con pedidos
 @RestController
 @RequestMapping("/api/pedidos")
+//Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
+@CrossOrigin(origins = "http://localhost:5173")
 @RequiredArgsConstructor
 public class PedidoController {
 
