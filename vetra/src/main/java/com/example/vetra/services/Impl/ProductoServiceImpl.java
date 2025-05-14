@@ -69,6 +69,7 @@ public class ProductoServiceImpl implements ProductoService {
         }
         
         if (producto.getCategorias() == null || producto.getCategorias().isEmpty()) {
+            System.out.println("Categorías recibidas: " + producto.getCategorias());
             throw new IllegalArgumentException("El producto debe tener al menos una categoría");
         }
         

@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,11 @@ public class PedidoServiceImpl implements PedidoService {
             if (item.getCantidad() <= 0) {
                 throw new IllegalArgumentException("La cantidad debe ser mayor a 0");
             }
+        }
+
+        // Establecemos la fecha de creación si no está establecida
+        if (pedido.getFechaCreacion() == null) {
+            pedido.setFechaCreacion(LocalDateTime.now());
         }
 
         return pedidoRepository.save(pedido);

@@ -6,6 +6,7 @@ import com.example.vetra.services.OrdenCompraService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,6 +28,10 @@ public class OrdenCompraServiceImpl implements OrdenCompraService {
 
     @Override
     public OrdenCompra save(OrdenCompra ordenCompra) {
+        // Establecemos la fecha de la orden si no está establecida
+        if (ordenCompra.getFechaOrden() == null) {
+            ordenCompra.setFechaOrden(LocalDateTime.now());
+        }
         return ordenCompraRepository.save(ordenCompra);
     }
 
