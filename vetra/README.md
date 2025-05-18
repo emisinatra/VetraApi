@@ -514,14 +514,47 @@ Gestiona las órdenes de compra, que se generan a partir de un pedido y contiene
 
 ## 🔐 Autenticación y Autorización
 
-*(Sección Futura)*
+La API implementa autenticación basada en JWT (JSON Web Tokens). Para acceder a los endpoints protegidos, necesitas obtener un token de autenticación.
 
-Actualmente, la API no implementa un esquema de autenticación/autorización robusto. Para un entorno de producción, se recomienda implementar:
+### Endpoints de Autenticación
 
-*   **Autenticación**: Spring Security con JWT (JSON Web Tokens) o OAuth2.
-*   **Autorización**: Basada en roles (Ej: `USUARIO`, `ADMIN`) para restringir el acceso a ciertos endpoints o funcionalidades.
+*   **`POST /api/auth/authenticate`**
+    *   Descripción: Autentica un usuario y devuelve un token JWT.
+    *   Request Body:
+        ```json
+        {
+            "email": "usuario@ejemplo.com",
+            "password": "contraseña123"
+        }
+        ```
+    *   Response: `200 OK`
+        ```json
+        {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+        }
+        ```
+    *   Response: `401 Unauthorized` (si las credenciales son incorrectas)
 
-Los endpoints que requieran autenticación necesitarán un header `Authorization` con el token correspondiente (Ej: `Authorization: Bearer <token>`).
+### Uso del Token
+
+Para acceder a los endpoints protegidos, debes incluir el token JWT en el header `Authorization` de tus peticiones:
+
+```
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+### Seguridad
+
+*   El token JWT expira después de 24 horas.
+*   Todas las rutas excepto `/api/auth/**` requieren autenticación.
+*   Las contraseñas se almacenan encriptadas usando BCrypt.
+*   Los tokens se firman usando una clave secreta.
+
+### Roles de Usuario
+
+La API soporta dos roles de usuario:
+*   `USER`: Usuario normal con acceso básico
+*   `ADMIN`: Administrador con acceso completo
 
 ---
 
