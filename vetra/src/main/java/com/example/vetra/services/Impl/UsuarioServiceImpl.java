@@ -37,7 +37,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
         existente.setNombre(usuario.getNombre());
         existente.setEmail(usuario.getEmail());
-        existente.setContraseña(usuario.getContraseña());
+        existente.setPassword(usuario.getPassword());
         existente.setRol(usuario.getRol());
         return usuarioRepository.save(existente);
     }

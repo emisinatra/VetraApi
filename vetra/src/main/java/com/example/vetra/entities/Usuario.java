@@ -71,4 +71,3 @@ public class Usuario extends Base implements UserDetails {
         return true;
     }
 }
-}
