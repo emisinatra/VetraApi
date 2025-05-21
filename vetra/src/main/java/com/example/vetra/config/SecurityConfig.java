@@ -24,7 +24,8 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .cors(cors -> cors.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/**", "/h2-console/**").permitAll()
+                .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/h2-console/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -32,7 +33,7 @@ public class SecurityConfig {
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         
         // Configuración específica para H2 Console
-        http.headers(headers -> headers.frameOptions().disable());
+        http.headers(headers -> headers.frameOptions(frameOptionsConfig -> frameOptionsConfig.disable()));
         
         return http.build();
     }

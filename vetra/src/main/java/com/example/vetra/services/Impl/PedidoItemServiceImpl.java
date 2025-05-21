@@ -2,55 +2,34 @@ package com.example.vetra.services.Impl;
 
 import com.example.vetra.entities.PedidoItem;
 import com.example.vetra.repositories.PedidoItemRepository;
+import com.example.vetra.services.BaseServiceImpl;
 import com.example.vetra.services.PedidoItemService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
-public class PedidoItemServiceImpl implements PedidoItemService {
+public class PedidoItemServiceImpl extends BaseServiceImpl<PedidoItem, Long> implements PedidoItemService {
 
-    private final PedidoItemRepository pedidoItemRepository;
-
-    @Override
-    public PedidoItem save(PedidoItem pedidoItem) {
-        return pedidoItemRepository.save(pedidoItem);
+    @Autowired
+    public PedidoItemServiceImpl(PedidoItemRepository pedidoItemRepository) {
+        super(pedidoItemRepository);
     }
 
     @Override
-    public List<PedidoItem> findAll() {
-        return pedidoItemRepository.findAll();
+    @Transactional
+    public PedidoItem update(Long id, PedidoItem pedidoItemDetails) throws Exception {
+        PedidoItem pedidoItemExistente = super.findById(id);
+        
+        pedidoItemExistente.setCantidad(pedidoItemDetails.getCantidad()); 
+        
+        return super.save(pedidoItemExistente);
     }
 
     @Override
-    public Optional<PedidoItem> findById(Long id) {
-        return pedidoItemRepository.findById(id);
+    @Transactional
+    public boolean delete(Long id) throws Exception {
+        return super.delete(id);
     }
-
-    @Override
-    public PedidoItem update(Long id, PedidoItem pedidoItem) {
-        PedidoItem existingItem = pedidoItemRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("PedidoItem no encontrado con ID: " + id));
-        // Solo permitir actualizar la cantidad por ejemplo
-        existingItem.setCantidad(pedidoItem.getCantidad()); 
-        return pedidoItemRepository.save(existingItem);
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (!pedidoItemRepository.existsById(id)) {
-            throw new EntityNotFoundException("PedidoItem no encontrado con ID: " + id);
-        }
-        pedidoItemRepository.deleteById(id);
-    }
-
-    // Implementación de findByPedidoId si se añade a la interfaz
-    // @Override
-    // public List<PedidoItem> findByPedidoId(Long pedidoId) {
-    // return pedidoItemRepository.findByPedidoId(pedidoId); // Necesitaría este método en el repo
-    // }
 } 

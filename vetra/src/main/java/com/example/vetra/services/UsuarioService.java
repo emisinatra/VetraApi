@@ -5,10 +5,6 @@ import com.example.vetra.entities.Usuario;
 import java.util.List;
 import java.util.Optional;
 
-public interface UsuarioService {
-    Usuario save(Usuario usuario);
-    Optional<Usuario> findById(Long id);
-    List<Usuario> findAll();
-    Usuario update(Long id, Usuario usuario);
-    void deleteById(Long id);
+public interface UsuarioService extends BaseService<Usuario, Long> {
+    // Si hay que hacer algo específico con usuarios que no esté en BaseService, lo ponemos acá.
 }

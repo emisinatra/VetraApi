@@ -1,7 +1,8 @@
 package com.example.vetra.repositories;
 
 import com.example.vetra.entities.Pedido;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface PedidoRepository extends JpaRepository<Pedido, Long> {
+@Repository
+public interface PedidoRepository extends BaseRepository<Pedido, Long> {
 }

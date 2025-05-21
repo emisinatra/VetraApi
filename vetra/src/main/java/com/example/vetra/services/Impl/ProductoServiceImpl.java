@@ -2,57 +2,42 @@ package com.example.vetra.services.Impl;
 
 import com.example.vetra.entities.Producto;
 import com.example.vetra.repositories.ProductoRepository;
+import com.example.vetra.services.BaseServiceImpl;
 import com.example.vetra.services.ProductoService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
-@RequiredArgsConstructor
-public class ProductoServiceImpl implements ProductoService {
+public class ProductoServiceImpl extends BaseServiceImpl<Producto, Long> implements ProductoService {
 
-    private final ProductoRepository productoRepository;
+    @Autowired
+    public ProductoServiceImpl(ProductoRepository productoRepository) {
+        super(productoRepository);
+    }
 
     @Override
     @Transactional
-    public Producto save(Producto producto) {
+    public Producto save(Producto producto) throws Exception {
         validateProducto(producto);
-        return productoRepository.save(producto);
-    }
-
-    @Override
-    public List<Producto> findAll() {
-        return productoRepository.findAll();
-    }
-
-    @Override
-    public Optional<Producto> findById(Long id) {
-        return productoRepository.findById(id);
+        return super.save(producto);
     }
 
     @Override
     @Transactional
-    public Producto update(Long id, Producto producto) {
-        if (!productoRepository.existsById(id)) {
-            throw new EntityNotFoundException("No existe un producto con el ID: " + id);
-        }
+    public Producto update(Long id, Producto producto) throws Exception {
+        super.findById(id);
         
         validateProducto(producto);
         producto.setId(id);
-        return productoRepository.save(producto);
+        return super.save(producto);
     }
 
     @Override
     @Transactional
-    public void delete(Long id) {
-        if (!productoRepository.existsById(id)) {
-            throw new EntityNotFoundException("No existe un producto con el ID: " + id);
-        }
-        productoRepository.deleteById(id);
+    public boolean delete(Long id) throws Exception {
+        return super.delete(id);
     }
 
     private void validateProducto(Producto producto) {
@@ -69,7 +54,6 @@ public class ProductoServiceImpl implements ProductoService {
         }
         
         if (producto.getCategorias() == null || producto.getCategorias().isEmpty()) {
-            System.out.println("Categorías recibidas: " + producto.getCategorias());
             throw new IllegalArgumentException("El producto debe tener al menos una categoría");
         }
         

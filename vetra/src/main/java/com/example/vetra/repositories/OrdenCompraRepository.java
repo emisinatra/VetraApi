@@ -1,7 +1,8 @@
 package com.example.vetra.repositories;
 
 import com.example.vetra.entities.OrdenCompra;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface OrdenCompraRepository extends JpaRepository<OrdenCompra, Long> {
+@Repository
+public interface OrdenCompraRepository extends BaseRepository<OrdenCompra, Long> {
 }

@@ -1,51 +1,30 @@
-package com.example.vetra.services.impl;
+package com.example.vetra.services.Impl;
 
 import com.example.vetra.entities.Descuento;
 import com.example.vetra.repositories.DescuentoRepository;
+import com.example.vetra.services.BaseServiceImpl;
 import com.example.vetra.services.DescuentoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-public class DescuentoServiceImpl implements DescuentoService {
+public class DescuentoServiceImpl extends BaseServiceImpl<Descuento, Long> implements DescuentoService {
 
-    private final DescuentoRepository descuentoRepository;
-
+    @Autowired
     public DescuentoServiceImpl(DescuentoRepository descuentoRepository) {
-        this.descuentoRepository = descuentoRepository;
+        super(descuentoRepository);
     }
 
     @Override
-    public Descuento save(Descuento descuento) {
-        return descuentoRepository.save(descuento);
-    }
+    @Transactional
+    public Descuento update(Long id, Descuento descuentoDetails) throws Exception {
+        Descuento descuentoExistente = super.findById(id);
 
-    @Override
-    public List<Descuento> getAll() {
-        return descuentoRepository.findAll();
-    }
-
-    @Override
-    public Optional<Descuento> getById(Long id) {
-        return descuentoRepository.findById(id);
-    }
-
-    @Override
-    public Descuento update(Long id, Descuento updated) {
-        return descuentoRepository.findById(id)
-                .map(descuento -> {
-                    descuento.setFechaInicio(updated.getFechaInicio());
-                    descuento.setFechaCierre(updated.getFechaCierre());
-                    descuento.setDescuento(updated.getDescuento());
-                    return descuentoRepository.save(descuento);
-                })
-                .orElseThrow(() -> new RuntimeException("Descuento no encontrado con ID: " + id));
-    }
-
-    @Override
-    public void delete(Long id) {
-        descuentoRepository.deleteById(id);
+        descuentoExistente.setFechaInicio(descuentoDetails.getFechaInicio());
+        descuentoExistente.setFechaCierre(descuentoDetails.getFechaCierre());
+        descuentoExistente.setDescuento(descuentoDetails.getDescuento());
+        
+        return super.save(descuentoExistente);
     }
 }

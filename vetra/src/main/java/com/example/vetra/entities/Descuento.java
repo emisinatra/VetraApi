@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Descuento extends Base {
+public class Descuento extends BaseEntity {
 
     @Column(name = "fecha_inicio", nullable = false)
     private Date fechaInicio;

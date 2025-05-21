@@ -5,21 +5,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 
-@MappedSuperclass
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public abstract class Base implements Serializable {
+@MappedSuperclass
+public abstract class BaseEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-}
+} 

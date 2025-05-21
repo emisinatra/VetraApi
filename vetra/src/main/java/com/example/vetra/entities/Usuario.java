@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Usuario extends Base implements UserDetails {
+public class Usuario extends BaseEntity implements UserDetails {
 
     @Column(nullable = false, unique = true)
     private String email;

@@ -1,7 +1,8 @@
 package com.example.vetra.repositories;
 
 import com.example.vetra.entities.Talle;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TalleRepository extends JpaRepository<Talle, Long> {
+@Repository
+public interface TalleRepository extends BaseRepository<Talle, Long> {
 }

@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class OrdenCompra extends Base {
+public class OrdenCompra extends BaseEntity {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "pedido_id", nullable = false)
@@ -32,13 +32,4 @@ public class OrdenCompra extends Base {
 
     @Column(name = "medio_pago")
     private String medioPago;
-
-    // Lógica para calcular montoTotal a partir de List<DetalleOrden> detalles
-    // @PrePersist
-    // @PreUpdate
-    // public void calcularMontoTotal() {
-    //     this.montoTotal = detalles.stream()
-    //                              .mapToDouble(d -> d.getCantidad() * d.getPrecioUnitario())
-    //                              .sum();
-    // }
 }

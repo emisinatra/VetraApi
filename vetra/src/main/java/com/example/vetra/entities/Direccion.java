@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Direccion extends Base {
+public class Direccion extends BaseEntity {
     private String calle;
     private int codpost;
 

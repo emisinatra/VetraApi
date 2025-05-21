@@ -2,13 +2,6 @@ package com.example.vetra.services;
 
 import com.example.vetra.entities.Pedido;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface PedidoService {
-    List<Pedido> findAll();
-    Optional<Pedido> findById(Long id);
-    Pedido save(Pedido pedido);
-    void deleteById(Long id);
-    Pedido update(Long id, Pedido pedido);
+public interface PedidoService extends BaseService<Pedido, Long> {
+    // Si hay que hacer algo con los pedidos que sea muy particular y no esté en BaseService, se pone acá.
 }

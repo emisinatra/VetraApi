@@ -2,50 +2,38 @@ package com.example.vetra.services.Impl;
 
 import com.example.vetra.entities.Direccion;
 import com.example.vetra.repositories.DireccionRepository;
+import com.example.vetra.services.BaseServiceImpl;
 import com.example.vetra.services.DireccionService;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@RequiredArgsConstructor
-public class DireccionServiceImpl implements DireccionService {
+public class DireccionServiceImpl extends BaseServiceImpl<Direccion, Long> implements DireccionService {
 
-    private final DireccionRepository direccionRepository;
-
-    @Override
-    public Direccion save(Direccion direccion) {
-        return direccionRepository.save(direccion);
+    @Autowired
+    public DireccionServiceImpl(DireccionRepository direccionRepository) {
+        super(direccionRepository);
     }
 
     @Override
-    public List<Direccion> findAll() {
-        return direccionRepository.findAll();
+    @Transactional
+    public Direccion update(Long id, Direccion direccionDetails) throws Exception {
+        Direccion direccionExistente = super.findById(id);
+        
+        direccionExistente.setCalle(direccionDetails.getCalle());
+        direccionExistente.setCodpost(direccionDetails.getCodpost());
+        // La lista de usuarios no la tocamos desde acá, eso se maneja desde Usuario o con métodos específicos.
+        // Por eso, la línea de abajo está comentada:
+        // // direccionExistente.setUsuarios(direccionDetails.getUsuarios()); 
+        
+        return super.save(direccionExistente);
     }
 
     @Override
-    public Optional<Direccion> findById(Long id) {
-        return direccionRepository.findById(id);
-    }
-
-    @Override
-    public Direccion update(Long id, Direccion direccion) {
-        Direccion existingDireccion = direccionRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Dirección no encontrada con ID: " + id));
-        existingDireccion.setCalle(direccion.getCalle());
-        existingDireccion.setCodpost(direccion.getCodpost());
-        // Actualizar otros campos si los añades
-        return direccionRepository.save(existingDireccion);
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (!direccionRepository.existsById(id)) {
-            throw new EntityNotFoundException("Dirección no encontrada con ID: " + id);
-        }
-        direccionRepository.deleteById(id);
+    @Transactional
+    public boolean delete(Long id) throws Exception {
+        return super.delete(id);
     }
 }

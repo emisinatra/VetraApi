@@ -2,13 +2,6 @@ package com.example.vetra.services;
 
 import com.example.vetra.entities.Producto;
 
-import java.util.List;
-import java.util.Optional;
-
-public interface ProductoService {
-    Producto save(Producto producto);
-    List<Producto> findAll();
-    Optional<Producto> findById(Long id);
-    Producto update(Long id, Producto producto);
-    void delete(Long id);
+public interface ProductoService extends BaseService<Producto, Long> {
+    // Cualquier cosa específica de productos que no esté en el BaseService, la metemos acá.
 }

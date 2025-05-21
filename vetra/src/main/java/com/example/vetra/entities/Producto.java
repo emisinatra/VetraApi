@@ -2,6 +2,7 @@ package com.example.vetra.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -12,8 +13,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Producto extends Base {
+@SuperBuilder
+public class Producto extends BaseEntity {
 
     // Nombre del producto (obligatorio)
     @Column(nullable = false)
@@ -30,7 +31,7 @@ public class Producto extends Base {
     @Column(nullable = false)
     private int stock;
 
-    // Categorías a las que pertenece el producto (ej: remeras, pantalones)
+    // Acá van las categorías del producto, viste, si es remera, pantalón, etc.
     @ManyToMany
     @JoinTable(
             name = "producto_categorias",

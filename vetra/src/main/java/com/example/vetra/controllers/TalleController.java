@@ -1,51 +1,23 @@
 package com.example.vetra.controllers;
 
 import com.example.vetra.entities.Talle;
-import com.example.vetra.services.TalleService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import com.example.vetra.services.Impl.TalleServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/talles")
 //Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
 @CrossOrigin(origins = "http://localhost:5173")
-@RequiredArgsConstructor
-public class TalleController {
+public class TalleController extends BaseControllerImpl<Talle, TalleServiceImpl> {
 
-    private final TalleService talleService;
-
-    @GetMapping
-    public ResponseEntity<List<Talle>> getAll() {
-        return ResponseEntity.ok(talleService.findAll());
+    @Autowired
+    public TalleController(TalleServiceImpl talleService) {
+        super(talleService);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Talle> getById(@PathVariable Long id) {
-        return talleService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PostMapping
-    public ResponseEntity<Talle> create(@RequestBody Talle talle) {
-        return ResponseEntity.ok(talleService.save(talle));
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Talle> update(@PathVariable Long id, @RequestBody Talle talle) {
-        if (!talleService.findById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        talle.setId(id);
-        return ResponseEntity.ok(talleService.save(talle));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        talleService.deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
+    // Acordate que los endpoints CRUD ya vienen de arriba, del BaseControllerImpl.
+    // Si no queremos que se puedan actualizar los talles (y el TalleServiceImpl tira error en el update),
+    // entonces el endpoint PUT ("/{id}") va a fallar como corresponde.
+    // Si sí se pueden actualizar, BaseControllerImpl se encarga de todo.
 }

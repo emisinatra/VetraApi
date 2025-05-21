@@ -16,7 +16,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class Categoria extends Base {
+public class Categoria extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String nombre;

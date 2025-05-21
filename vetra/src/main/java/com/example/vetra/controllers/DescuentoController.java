@@ -1,49 +1,18 @@
 package com.example.vetra.controllers;
 
 import com.example.vetra.entities.Descuento;
-import com.example.vetra.services.DescuentoService;
-import org.springframework.http.ResponseEntity;
+import com.example.vetra.services.Impl.DescuentoServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/descuentos")
 //Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
 @CrossOrigin(origins = "http://localhost:5173")
-public class DescuentoController {
+public class DescuentoController extends BaseControllerImpl<Descuento, DescuentoServiceImpl> {
 
-    private final DescuentoService descuentoService;
-
-    public DescuentoController(DescuentoService descuentoService) {
-        this.descuentoService = descuentoService;
-    }
-
-    @PostMapping
-    public ResponseEntity<Descuento> create(@RequestBody Descuento descuento) {
-        return ResponseEntity.ok(descuentoService.save(descuento));
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Descuento>> getAll() {
-        return ResponseEntity.ok(descuentoService.getAll());
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Descuento> getById(@PathVariable Long id) {
-        return descuentoService.getById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Descuento> update(@PathVariable Long id, @RequestBody Descuento descuento) {
-        return ResponseEntity.ok(descuentoService.update(id, descuento));
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id) {
-        descuentoService.delete(id);
-        return ResponseEntity.noContent().build();
+    @Autowired
+    public DescuentoController(DescuentoServiceImpl descuentoService) {
+        super(descuentoService);
     }
 }
