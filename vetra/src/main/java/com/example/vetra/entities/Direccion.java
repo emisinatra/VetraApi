@@ -17,6 +17,6 @@ public class Direccion extends BaseEntity {
     private String calle;
     private int codpost;
 
-    @ManyToMany(mappedBy = "direcciones", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "direcciones", fetch = FetchType.EAGER)
     private List<Usuario> usuarios;
 }

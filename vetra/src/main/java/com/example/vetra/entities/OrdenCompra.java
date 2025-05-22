@@ -21,7 +21,7 @@ public class OrdenCompra extends BaseEntity {
     @JoinColumn(name = "pedido_id", nullable = false)
     private Pedido pedido;
 
-    @OneToMany(mappedBy = "ordenCompra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "ordenCompra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<DetalleOrden> detalles = new ArrayList<>();
 
     @Column(name = "fecha_orden", nullable = false)

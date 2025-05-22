@@ -1,6 +1,8 @@
 package com.example.vetra.entities;
 
 import com.example.vetra.entities.enums.Rol;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -35,12 +37,13 @@ public class Usuario extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(name = "usuarios_direcciones",
                joinColumns = @JoinColumn(name = "usuario_id"),
                inverseJoinColumns = @JoinColumn(name = "direccion_id"))
     private List<Direccion> direcciones;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(rol.name()));

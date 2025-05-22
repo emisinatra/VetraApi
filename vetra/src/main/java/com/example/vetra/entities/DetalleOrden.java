@@ -16,11 +16,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class DetalleOrden extends BaseEntity {
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "orden_compra_id", nullable = false)
     private OrdenCompra ordenCompra;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
