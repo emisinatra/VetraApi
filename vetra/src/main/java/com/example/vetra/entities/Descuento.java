@@ -25,6 +25,6 @@ public class Descuento extends BaseEntity {
     @Column(name = "porcentaje", nullable = false)
     private double descuento;
 
-    @OneToMany(mappedBy = "descuento", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "descuento", cascade = CascadeType.ALL)
     private List<Producto> productos;
 }

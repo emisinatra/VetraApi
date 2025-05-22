@@ -32,7 +32,7 @@ public class Producto extends BaseEntity {
     private int stock;
 
     // Acá van las categorías del producto, viste, si es remera, pantalón, etc.
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "producto_categorias",
             joinColumns = @JoinColumn(name = "producto_id"),
@@ -55,7 +55,7 @@ public class Producto extends BaseEntity {
     private Descuento descuento;
 
     // Talles disponibles para este producto
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "producto_talle",
             joinColumns = @JoinColumn(name = "producto_id"),
