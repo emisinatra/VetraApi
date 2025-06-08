@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "descuentos")
 @Getter
@@ -26,5 +28,6 @@ public class Descuento extends BaseEntity {
     private double descuento;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "descuento", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Producto> productos;
 }
