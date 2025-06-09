@@ -27,6 +27,11 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido, Long> implements 
         if (pedido.getFechaCreacion() == null) {
             pedido.setFechaCreacion(LocalDateTime.now());
         }
+
+        for (PedidoItem item : pedido.getItems()) {
+            item.setPedido(pedido);
+        }
+
         return super.save(pedido);
     }
 
@@ -37,8 +42,13 @@ public class PedidoServiceImpl extends BaseServiceImpl<Pedido, Long> implements 
         
         validatePedidoItems(pedidoDetails);
 
+        pedidoExistente.getItems().clear();
+        for (PedidoItem item : pedidoDetails.getItems()) {
+            item.setPedido(pedidoExistente);
+            pedidoExistente.getItems().add(item);
+        }
+
         pedidoExistente.setUsuario(pedidoDetails.getUsuario());
-        pedidoExistente.setItems(pedidoDetails.getItems());
         pedidoExistente.setEstado(pedidoDetails.getEstado());
         pedidoExistente.setFechaCreacion(pedidoDetails.getFechaCreacion());
 

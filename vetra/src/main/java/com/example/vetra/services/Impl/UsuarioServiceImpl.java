@@ -5,15 +5,25 @@ import com.example.vetra.repositories.UsuarioRepository;
 import com.example.vetra.services.BaseServiceImpl;
 import com.example.vetra.services.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implements UsuarioService {
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public UsuarioServiceImpl(UsuarioRepository usuarioRepository) {
+    public UsuarioServiceImpl(UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
         super(usuarioRepository);
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public Usuario save(Usuario usuario) throws Exception {
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        return super.save(usuario);
     }
 
     @Override
@@ -23,7 +33,11 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
         usuarioExistente.setNombre(usuarioDetails.getNombre());
         usuarioExistente.setApellido(usuarioDetails.getApellido());
         usuarioExistente.setEmail(usuarioDetails.getEmail());
-        usuarioExistente.setPassword(usuarioDetails.getPassword());
+        
+        if (usuarioDetails.getPassword() != null && !usuarioDetails.getPassword().isEmpty()) {
+            usuarioExistente.setPassword(passwordEncoder.encode(usuarioDetails.getPassword()));
+        }
+        
         usuarioExistente.setRol(usuarioDetails.getRol());
         
         return super.save(usuarioExistente);
