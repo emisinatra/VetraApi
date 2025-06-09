@@ -1,5 +1,6 @@
 package com.example.vetra.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -18,5 +19,6 @@ public class Direccion extends BaseEntity {
     private int codpost;
 
     @ManyToMany(mappedBy = "direcciones", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Usuario> usuarios;
 }
