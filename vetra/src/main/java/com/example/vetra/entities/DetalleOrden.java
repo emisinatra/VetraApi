@@ -1,5 +1,7 @@
 package com.example.vetra.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -18,6 +20,7 @@ public class DetalleOrden extends BaseEntity {
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "orden_compra_id", nullable = false)
+    @JsonIgnore
     private OrdenCompra ordenCompra;
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
