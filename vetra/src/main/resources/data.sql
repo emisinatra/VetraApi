@@ -13,7 +13,7 @@ VALUES (1, 'Zapatillas'),
        (2, 'Camperas'),
        (3, 'Hombre'),
        (4, 'Mujer'),
-       (5, 'Niño');
+       (5, 'Chicos');
 
 -- Insertar talles
 INSERT INTO talles (id, talle)
