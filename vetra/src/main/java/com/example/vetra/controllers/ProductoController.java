@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/productos")
 //Esto permite que el front pueda hacer request, si no estuviera, al hacer una request lanzaria CORS error.
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = {"http://localhost:5173", "http://localhost:5174"})
 public class ProductoController extends BaseControllerImpl<Producto, ProductoServiceImpl> {
 
     // Servicio que maneja toda la lógica de productos
