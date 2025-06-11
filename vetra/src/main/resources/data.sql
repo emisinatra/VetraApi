@@ -7,7 +7,7 @@ INSERT INTO usuarios (email, nombre, apellido, password, rol)
 VALUES ( 'admin@vetra.com', 'Admin', 'Admin', '$2a$10$xIaPWXqgBSEyQ6Otl2hNPOQ.ij4dTT1CxFJ2kh1EmzEAtLpCnAacq',
         'ADMIN');
 
--- Insertar categorías (sintaxis compatible con H2)
+-- Insertar categorías
 INSERT INTO categorias (nombre)
 VALUES ('Zapatillas'),
        ('Camperas'),
