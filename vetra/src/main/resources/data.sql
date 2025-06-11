@@ -8,12 +8,12 @@ VALUES ( 'admin@vetra.com', 'Admin', 'Admin', '$2a$10$xIaPWXqgBSEyQ6Otl2hNPOQ.ij
         'ADMIN');
 
 -- Insertar categorías (sintaxis compatible con H2)
-INSERT INTO categorias (id, nombre)
-VALUES (1, 'Zapatillas'),
-       (2, 'Camperas'),
-       (3, 'Hombre'),
-       (4, 'Mujer'),
-       (5, 'Chicos');
+INSERT INTO categorias (nombre)
+VALUES ('Zapatillas'),
+       ('Camperas'),
+       ('Hombre'),
+       ('Mujer'),
+       ('Chicos');
 
 -- Insertar talles
 INSERT INTO talles (talle)
