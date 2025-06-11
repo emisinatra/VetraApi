@@ -41,7 +41,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
         }
 
         PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
-                .success("http://localhost:5173/success") // URL de éxito
+                .success("http://localhost:5173/success") // URL de exito
                 .failure("http://localhost:5173/failure") // URL de fallo
                 .pending("http://localhost:5173/pending") // URL pendiente
                 .build();
@@ -49,7 +49,7 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                 .items(items)
                 .backUrls(backUrls)
-                .autoReturn("approved") // Auto-retorno en caso de aprobación
+                .autoReturn("approved") // Auto-retorno en caso de aprobacion
                 .build();
 
         PreferenceClient client = new PreferenceClient();
