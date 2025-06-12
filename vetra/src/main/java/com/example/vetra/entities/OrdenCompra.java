@@ -22,6 +22,7 @@ public class OrdenCompra extends BaseEntity {
     private Pedido pedido;
 
     @OneToMany(mappedBy = "ordenCompra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Builder.Default
     private List<DetalleOrden> detalles = new ArrayList<>();
 
     @Column(name = "fecha_orden", nullable = false)

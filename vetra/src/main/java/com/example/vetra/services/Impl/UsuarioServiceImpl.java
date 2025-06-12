@@ -35,7 +35,7 @@ public class UsuarioServiceImpl extends BaseServiceImpl<Usuario, Long> implement
         usuarioExistente.setEmail(usuarioDetails.getEmail());
         
         if (usuarioDetails.getPassword() != null && !usuarioDetails.getPassword().isEmpty()) {
-            usuarioExistente.setPassword(passwordEncoder.encode(usuarioDetails.getPassword()));
+            usuarioExistente.setPassword(usuarioDetails.getPassword());
         }
         
         usuarioExistente.setRol(usuarioDetails.getRol());

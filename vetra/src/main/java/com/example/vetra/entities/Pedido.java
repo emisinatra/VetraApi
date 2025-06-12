@@ -4,6 +4,7 @@ import com.example.vetra.entities.enums.Estado;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import lombok.Builder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Pedido extends BaseEntity {
     private Usuario usuario;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Builder.Default
     private List<PedidoItem> items = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
