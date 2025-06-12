@@ -41,17 +41,25 @@ public class MercadoPagoServiceImpl implements MercadoPagoService {
         }
 
         PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest.builder()
-                .success("http://localhost:5173/success") // URL de exito
-                .failure("http://localhost:5173/failure") // URL de fallo
-                .pending("http://localhost:5173/pending") // URL pendiente
+                .success("https://localhost:5173/success") // URL de exito
+                .failure("https://localhost:5173/failure") // URL de fallo
+                .pending("https://localhost:5173/pending") // URL pendiente
+                .build();
+
+        List<PreferencePaymentTypeRequest> excludedPaymentTypes = new ArrayList<>();
+        excludedPaymentTypes.add(PreferencePaymentTypeRequest.builder().id("ticket").build());
+
+        PreferencePaymentMethodsRequest paymentMethods = PreferencePaymentMethodsRequest.builder()
+                .excludedPaymentTypes(excludedPaymentTypes)
+                .installments(1)
                 .build();
 
         PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                 .items(items)
                 .backUrls(backUrls)
-                .autoReturn("approved") // Auto-retorno en caso de aprobacion
+                .paymentMethods(paymentMethods)
                 .build();
-
+        
         PreferenceClient client = new PreferenceClient();
         return client.create(preferenceRequest);
     }
