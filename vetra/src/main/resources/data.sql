@@ -7,13 +7,13 @@ INSERT INTO usuarios (email, nombre, apellido, password, rol)
 VALUES ( 'admin@vetra.com', 'Admin', 'Admin', '$2a$10$xIaPWXqgBSEyQ6Otl2hNPOQ.ij4dTT1CxFJ2kh1EmzEAtLpCnAacq',
         'ADMIN');
 
--- Insertar categorías
+-- Insertar categorías (sintaxis compatible con H2)
 INSERT INTO categorias (nombre)
-VALUES ('Zapatillas'),
-       ('Camperas'),
-       ('Hombre'),
-       ('Mujer'),
-       ('Chicos');
+VALUES ( 'Zapatillas'),
+       ( 'Camperas'),
+       ( 'Hombre'),
+       ( 'Mujer'),
+       ( 'Chicos');
 
 -- Insertar talles
 INSERT INTO talles (talle)
@@ -50,9 +50,9 @@ VALUES ( 'Av. San Martín 770', 5500),
 
 -- Insertar clientes
 INSERT INTO usuarios (email, password, nombre, apellido, rol)
-VALUES ( 'cliente1@mail.com', '$2a$10$xyz123', 'Juan', 'Pérez', 'USUARIO'),
-       ( 'cliente2@mail.com', '$2a$10$abc456', 'María', 'Gómez', 'USUARIO'),
-       ( 'cliente3@mail.com', '$2a$10$def789', 'Carlos', 'López', 'USUARIO');
+VALUES ( 'cliente1@mail.com', 'juanperez84', 'Juan', 'Pérez', 'USUARIO'),
+       ( 'cliente2@mail.com', 'marymary13', 'María', 'Gómez', 'USUARIO'),
+       ( 'cliente3@mail.com', 'charlie14choco2025', 'Carlos', 'López', 'USUARIO');
 
 
 -- Relacionar usuarios con direcciones
