@@ -17,8 +17,8 @@ import java.util.List;
 @SuperBuilder
 public class OrdenCompra extends BaseEntity {
 
-    @OneToOne(optional = false)
-    @JoinColumn(name = "pedido_id", nullable = false)
+    @OneToOne(optional = true)
+    @JoinColumn(name = "pedido_id", nullable = true)
     private Pedido pedido;
 
     @OneToMany(mappedBy = "ordenCompra", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
