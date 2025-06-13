@@ -50,9 +50,9 @@ VALUES ( 'Av. San Martín 770', 5500),
 
 -- Insertar clientes
 INSERT INTO usuarios (email, password, nombre, apellido, rol)
-VALUES ( 'cliente1@mail.com', 'juanperez84', 'Juan', 'Pérez', 'USUARIO'),
-       ( 'cliente2@mail.com', 'marymary13', 'María', 'Gómez', 'USUARIO'),
-       ( 'cliente3@mail.com', 'charlie14choco2025', 'Carlos', 'López', 'USUARIO');
+VALUES ( 'cliente1@mail.com', 'juanperez84', 'Juan', 'Perez', 'USUARIO'),
+       ( 'cliente2@mail.com', 'marymary13', 'Maria', 'Gomez', 'USUARIO'),
+       ( 'cliente3@mail.com', 'charlie14choco2025', 'Carlos', 'Lopez', 'USUARIO');
 
 
 -- Relacionar usuarios con direcciones
